@@ -37,6 +37,6 @@ Also, if you are using obfuscation you need to keep names for the registries so 
 
 # Limitations
 
-* `@ProvidesSingletonInScope` annotation is not supported because it's not available in runtime, use `providesSingletonInScope()` binding instead. It can be fixed in the futuer by monkey-patching this annoation.
+* `@ProvidesSingletonInScope` annotation is not supported because it's not available in runtime, use `providesSingletonInScope()` binding instead. It can be fixed in the future by monkey-patching this annoation
 * Superclass member injection is not supported for dependencies created using factories (see [FactoryGenerator.java](https://github.com/stephanenicolas/toothpick/blob/master/toothpick-compiler/src/main/java/toothpick/compiler/factory/generators/FactoryGenerator.java#L56)) 
 * This implementation may contain bugs, please do not use for production
