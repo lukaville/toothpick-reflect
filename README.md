@@ -2,38 +2,50 @@
 
 The toothpick-reflect artifact is an API-compatible configuration for Toothpick 1.x which uses 100% reflection instead of annotation processing for use during development.
 
-[![Build Status](https://travis-ci.com/lukaville/toothpick-reflect.svg?token=2prhXSky2AKzpAUuST1x&branch=master)](https://travis-ci.com/lukaville/toothpick-reflect)
+[![Build Status](https://travis-ci.com/lukaville/toothpick-reflect.svg?token=2prhXSky2AKzpAUuST1x&branch=master)](https://travis-ci.com/lukaville/toothpick-reflect) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 # Usage
 
-```groovy
-dependencies {
-  if (properties.containsKey('android.injected.invoked.from.ide')) {
-    implementation 'com.lukaville.toothpick.reflect:toothpick-reflect-runtime:0.1.0'
-  } else {
-    implementation 'com.github.stephanenicolas.toothpick:toothpick-runtime:1.1.3'
-    kapt 'com.github.stephanenicolas.toothpick:toothpick-compiler:1.1.3'
-  }
-}
-```
+1. Add this maven repository:
+    ```groovy
+    repositories {
+        ...
+        maven { url "https://dl.bintray.com/lukaville/maven" }
+    }
+    ```
 
-_* replace `kapt` with `annotationProcessor` for Java modules_
+    The artifact will be available on jcenter soon.
 
-If you are using factory registries and member injector registries you need to instanciate them using reflection:
+2. Use `reflect-runtime` artifact for IDE builds:
 
-* #### Replace this:
-  ```java
-  FactoryRegistryLocator.setRootRegistry(FactoryRegistry());
-  MemberInjectorRegistryLocator.setRootRegistry(MemberInjectorRegistry());
-  ```
+    ```groovy
+    dependencies {
+      if (properties.containsKey('android.injected.invoked.from.ide')) {
+        implementation 'com.lukaville.toothpick.reflect:toothpick-reflect-runtime:0.1.0'
+      } else {
+        implementation 'com.github.stephanenicolas.toothpick:toothpick-runtime:1.1.3'
+        kapt 'com.github.stephanenicolas.toothpick:toothpick-compiler:1.1.3'
+      }
+    }
+    ```
 
-* #### With this:
-  ```java
-  FactoryRegistryLocator.setRootRegistry(Class.forName("mypackage.FactoryRegistry").getConstructor().newInstance());
-  MemberInjectorRegistryLocator.setRootRegistry(Class.forName("mypackage.MemberInjectorRegistry").getConstructor().newInstance());
-  ```
+    _* replace `kapt` with `annotationProcessor` for Java modules_
 
-Also, if you are using obfuscation you need to keep names for the registries so reflective instantiation doesn't fail.
+3. If you are using factory registries and member injector registries you need to instanciate them using reflection:
+
+    * #### Replace this:
+      ```java
+      FactoryRegistryLocator.setRootRegistry(FactoryRegistry());
+      MemberInjectorRegistryLocator.setRootRegistry(MemberInjectorRegistry());
+      ```
+
+    * #### With this:
+      ```java
+      FactoryRegistryLocator.setRootRegistry(Class.forName("mypackage.FactoryRegistry").getConstructor().newInstance());
+      MemberInjectorRegistryLocator.setRootRegistry(Class.forName("mypackage.MemberInjectorRegistry").getConstructor().newInstance());
+      ```
+
+    Also, if you are using obfuscation you need to keep names for the registries so reflective instantiation doesn't fail.
 
 # Limitations
 
