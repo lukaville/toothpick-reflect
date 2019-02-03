@@ -1,6 +1,6 @@
 # Toothpick Reflect
 
-The toothpick-reflect artifact is an API-compatible configuration for Toothpick 1.x which uses 100% reflection instead of annotation processing for use during development.
+The toothpick-reflect artifact is an API-compatible implementation of Toothpick 1.x which uses 100% reflection instead of annotation processing for use during development.
 
 [![Build Status](https://travis-ci.com/lukaville/toothpick-reflect.svg?token=2prhXSky2AKzpAUuST1x&branch=master)](https://travis-ci.com/lukaville/toothpick-reflect) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
@@ -49,6 +49,6 @@ The toothpick-reflect artifact is an API-compatible configuration for Toothpick 
 
 # Limitations
 
-* `@ProvidesSingletonInScope` annotation is not supported because it's not available in runtime, use `providesSingletonInScope()` binding instead. It can be fixed in the future by monkey-patching this annoation
-* Superclass member injection is not supported for dependencies created using factories (see [FactoryGenerator.java](https://github.com/stephanenicolas/toothpick/blob/master/toothpick-compiler/src/main/java/toothpick/compiler/factory/generators/FactoryGenerator.java#L56)) 
+* `@ProvidesSingletonInScope` annotation is not supported because it's not available at runtime, use `providesSingletonInScope()` binding instead. It can be fixed in the future by monkey-patching this annoation
+* Superclass member injection is not implemented for dependencies created using factories (see [FactoryGenerator.java](https://github.com/stephanenicolas/toothpick/blob/master/toothpick-compiler/src/main/java/toothpick/compiler/factory/generators/FactoryGenerator.java#L56)) 
 * This implementation may contain bugs, please do not use for production
