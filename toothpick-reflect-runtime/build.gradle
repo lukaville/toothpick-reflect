@@ -33,7 +33,7 @@ bintray {
     user = System.getenv('BINTRAY_USER')
     key = System.getenv('BINTRAY_KEY')
     pkg {
-        repo = 'generic'
+        repo = 'maven'
         name = 'com.lukaville.toothpick.reflect'
         licenses = ['Apache-2.0']
         vcsUrl = project.ext.githubUrl
