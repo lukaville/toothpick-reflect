@@ -2,6 +2,8 @@
 
 The toothpick-reflect artifact is an API-compatible configuration for Toothpick 1.x which uses 100% reflection instead of annotation processing for use during development.
 
+[![Build Status](https://travis-ci.com/lukaville/toothpick-reflect.svg?token=2prhXSky2AKzpAUuST1x&branch=master)](https://travis-ci.com/lukaville/toothpick-reflect)
+
 # Usage
 
 ```groovy
