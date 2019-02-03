@@ -1,5 +1,7 @@
-apply plugin: 'java'
 apply plugin: 'kotlin'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 
 repositories {
     jcenter()
@@ -16,6 +18,64 @@ dependencies {
 
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = '1.8'
     }
+}
+
+ext.version = '0.1.0'
+ext.githubUrl = 'https://github.com/lukaville/toothpick-reflect'
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    pkg {
+        repo = 'generic'
+        name = 'com.lukaville.toothpick.reflect'
+        licenses = ['Apache-2.0']
+        vcsUrl = project.ext.githubUrl
+
+        version {
+            name = project.ext.version
+            released = new Date()
+            vcsTag = '0.1.0'
+        }
+    }
+    publications = ['BintrayPublication']
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name 'The Apache Software License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+            distribution 'repo'
+        }
+    }
+    scm {
+        url project.ext.githubUrl
+    }
+}
+
+publishing {
+    publications {
+        BintrayPublication(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            groupId 'com.lukaville.toothpick.reflect'
+            artifactId 'toothpick-reflect'
+            version project.ext.version
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', 'Fully reflective implementation of toothpick 1.x')
+                root.appendNode('name', 'Toothpick Reflect')
+                root.appendNode('url', project.ext.githubUrl)
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
