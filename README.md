@@ -6,15 +6,13 @@ The toothpick-reflect artifact is an API-compatible implementation of Toothpick 
 
 # Usage
 
-1. Add this maven repository:
+1. Add `jcenter()` maven repository:
     ```groovy
     repositories {
         ...
-        maven { url "https://dl.bintray.com/lukaville/maven" }
+        jcenter()
     }
     ```
-
-    The artifact will be available on jcenter soon.
 
 2. Use `reflect-runtime` artifact for IDE builds:
 
